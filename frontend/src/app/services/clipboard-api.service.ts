@@ -16,17 +16,23 @@ export class ClipboardApiService {
   private readonly baseUrl = environment.apiBaseUrl;
 
   listDays() {
-    return this.http.get<ClipboardDaySummary[]>(`${this.baseUrl}/clipboard/days`);
+    return this.http.get<ClipboardDaySummary[]>(
+      `${this.baseUrl}/clipboard/days`
+    );
   }
 
   listByDay(dayKey?: string) {
     const params = dayKey ? { day: dayKey } : undefined;
-    return this.http.get<ClipboardItem[]>(`${this.baseUrl}/clipboard`, { params });
+    return this.http.get<ClipboardItem[]>(`${this.baseUrl}/clipboard`, {
+      params,
+    });
   }
 
   latest(limit = 20) {
     const params = { limit: String(limit) };
-    return this.http.get<ClipboardItem[]>(`${this.baseUrl}/clipboard/latest`, { params });
+    return this.http.get<ClipboardItem[]>(`${this.baseUrl}/clipboard/latest`, {
+      params,
+    });
   }
 
   create(payload: CreateClipboardPayload) {
@@ -34,15 +40,22 @@ export class ClipboardApiService {
   }
 
   update(id: string, payload: UpdateClipboardPayload) {
-    return this.http.patch<ClipboardItem>(`${this.baseUrl}/clipboard/${id}`, payload);
+    return this.http.patch<ClipboardItem>(
+      `${this.baseUrl}/clipboard/${id}`,
+      payload
+    );
   }
 
   delete(id: string) {
-    return this.http.delete<ClipboardRemoval>(`${this.baseUrl}/clipboard/${id}`);
+    return this.http.delete<ClipboardRemoval>(
+      `${this.baseUrl}/clipboard/${id}`
+    );
   }
 
   deleteByDay(dayKey: string) {
     const params = { day: dayKey };
-    return this.http.delete<ClipboardDayClear>(`${this.baseUrl}/clipboard`, { params });
+    return this.http.delete<ClipboardDayClear>(`${this.baseUrl}/clipboard`, {
+      params,
+    });
   }
 }

@@ -54,9 +54,12 @@ describe('App', () => {
       providers: [
         provideZonelessChangeDetection(),
         provideHttpClient(),
-        { provide: ClipboardRealtimeService, useClass: ClipboardRealtimeServiceStub },
+        {
+          provide: ClipboardRealtimeService,
+          useClass: ClipboardRealtimeServiceStub,
+        },
         { provide: ClipboardApiService, useClass: ClipboardApiServiceStub },
-      ]
+      ],
     }).compileComponents();
   });
 
@@ -70,6 +73,8 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Clipboard colaborativo');
+    expect(compiled.querySelector('h1')?.textContent).toContain(
+      'Clipboard colaborativo'
+    );
   });
 });

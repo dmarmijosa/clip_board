@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 @layer base {
-	body {
-		@apply min-h-screen bg-dashboard text-slate-100 antialiased;
-	}
+  body {
+    @apply min-h-screen bg-dashboard text-slate-100 antialiased;
+  }
 
-	::selection {
-		@apply bg-indigo-400/60 text-white;
-	}
+  ::selection {
+    @apply bg-indigo-400/60 text-white;
+  }
 }

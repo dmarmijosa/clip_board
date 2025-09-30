@@ -30,8 +30,7 @@ const dayKey = (date: Date) => date.toISOString().slice(0, 10);
   imports: [CommonModule, FormsModule],
   templateUrl: './app.html',
   host: {
-    class:
-      'block min-h-screen w-full bg-transparent font-sans text-slate-100',
+    class: 'block min-h-screen w-full bg-transparent font-sans text-slate-100',
   },
 })
 export class App implements OnInit {
@@ -61,7 +60,7 @@ export class App implements OnInit {
   readonly previewHtml = computed(() => this.markdown.toHtml(this.draft()));
   readonly totalEntries = computed(() => this.entries().length);
   readonly canSubmit = computed(
-    () => !!this.draft().trim() && !this.isSaving(),
+    () => !!this.draft().trim() && !this.isSaving()
   );
 
   private copyResetHandle: number | null = null;
@@ -101,7 +100,7 @@ export class App implements OnInit {
           content,
           format: 'markdown',
           source: this.sourceLabel().trim() || undefined,
-        }),
+        })
       );
       this.draft.set('');
       this.handleRealtimeEvent({ type: 'created', payload: entry });
@@ -157,7 +156,7 @@ export class App implements OnInit {
     }
 
     const confirmed = window.confirm(
-      '¿Deseas eliminar este elemento del clipboard?',
+      '¿Deseas eliminar este elemento del clipboard?'
     );
     if (!confirmed) {
       return;
@@ -179,7 +178,7 @@ export class App implements OnInit {
     }
 
     const confirmed = window.confirm(
-      '¿Quieres eliminar todas las entradas de este día?',
+      '¿Quieres eliminar todas las entradas de este día?'
     );
     if (!confirmed) {
       return;
@@ -375,7 +374,10 @@ export class App implements OnInit {
     this.editSource.set('');
   }
 
-  private async copyToClipboard(content: string, entryId: string): Promise<void> {
+  private async copyToClipboard(
+    content: string,
+    entryId: string
+  ): Promise<void> {
     if (navigator?.clipboard?.writeText) {
       await navigator.clipboard.writeText(content);
       this.copiedEntryId.set(entryId);

@@ -1,4 +1,6 @@
-<div class="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 pb-16 pt-12 lg:px-8">
+<div
+  class="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 pb-16 pt-12 lg:px-8"
+>
   <header
     class="flex flex-wrap items-start justify-between gap-6 rounded-3xl bg-white/10 px-8 py-10 text-slate-50 shadow-glow backdrop-blur lg:px-10"
   >
@@ -13,24 +15,28 @@
     <div class="flex items-center gap-3">
       <span
         class="relative inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium tracking-wide text-slate-100 transition before:absolute before:left-3 before:h-2 before:w-2 before:rounded-full before:content-['']"
-        [ngClass]="realtimeConnected()
-          ? 'bg-emerald-500/15 text-emerald-100 before:bg-emerald-400'
-          : 'bg-amber-500/15 text-amber-100 before:bg-amber-400 animate-pulse'"
+        [ngClass]="
+          realtimeConnected()
+            ? 'bg-emerald-500/15 text-emerald-100 before:bg-emerald-400'
+            : 'bg-amber-500/15 text-amber-100 before:bg-amber-400 animate-pulse'
+        "
       >
-        {{ realtimeConnected() ? 'Conectado' : 'Reconectando…' }}
+        {{ realtimeConnected() ? "Conectado" : "Reconectando…" }}
       </span>
       <button
         type="button"
         class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-slate-100 transition hover:border-white/40 hover:bg-white/20 disabled:cursor-not-allowed disabled:opacity-60"
-    (click)="refreshDays()"
-    [disabled]="daysLoading()"
+        (click)="refreshDays()"
+        [disabled]="daysLoading()"
       >
         Actualizar días
       </button>
     </div>
   </header>
 
-  <section class="rounded-3xl border border-white/10 bg-slate-950/40 px-8 py-8 shadow-lg backdrop-blur lg:px-10">
+  <section
+    class="rounded-3xl border border-white/10 bg-slate-950/40 px-8 py-8 shadow-lg backdrop-blur lg:px-10"
+  >
     <h2 class="text-lg font-semibold text-slate-100">Historial</h2>
     <div class="mt-5 flex flex-wrap gap-3">
       <button
@@ -38,7 +44,8 @@
         class="group flex items-center gap-2 rounded-full border border-slate-600/60 bg-slate-900/70 px-4 py-2 text-sm font-medium text-slate-200 transition hover:border-indigo-400 hover:text-indigo-100"
         *ngFor="let day of days(); trackBy: trackByDay"
         [ngClass]="{
-          'border-transparent bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-500/30': day.dayKey === selectedDay()
+          'border-transparent bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-500/30':
+            day.dayKey === selectedDay()
         }"
         (click)="selectDay(day.dayKey)"
       >
@@ -53,8 +60,13 @@
   </section>
 
   <section class="grid gap-6 lg:grid-cols-2">
-    <div class="flex flex-col gap-4 rounded-3xl border border-white/10 bg-slate-950/50 p-6 shadow-lg backdrop-blur">
-      <label class="text-sm font-semibold uppercase tracking-wide text-slate-300" for="clipboard-input">
+    <div
+      class="flex flex-col gap-4 rounded-3xl border border-white/10 bg-slate-950/50 p-6 shadow-lg backdrop-blur"
+    >
+      <label
+        class="text-sm font-semibold uppercase tracking-wide text-slate-300"
+        for="clipboard-input"
+      >
         Nuevo contenido
       </label>
       <textarea
@@ -79,11 +91,13 @@
           (click)="submit()"
           [disabled]="!canSubmit()"
         >
-          {{ isSaving() ? 'Guardando…' : 'Guardar y difundir' }}
+          {{ isSaving() ? "Guardando…" : "Guardar y difundir" }}
         </button>
       </div>
     </div>
-    <div class="rounded-3xl border border-white/10 bg-slate-950/50 p-6 shadow-lg backdrop-blur">
+    <div
+      class="rounded-3xl border border-white/10 bg-slate-950/50 p-6 shadow-lg backdrop-blur"
+    >
       <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-300">
         Vista previa Markdown
       </h3>
@@ -94,15 +108,21 @@
     </div>
   </section>
 
-  <section class="rounded-3xl border border-white/10 bg-slate-950/50 p-6 shadow-lg backdrop-blur">
-    <header class="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-4">
+  <section
+    class="rounded-3xl border border-white/10 bg-slate-950/50 p-6 shadow-lg backdrop-blur"
+  >
+    <header
+      class="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-4"
+    >
       <h2 class="text-lg font-semibold text-slate-100">
         Entradas del {{ formatDayLabel(selectedDay()) }}
       </h2>
       <div class="flex flex-wrap items-center gap-3">
         <span class="text-sm text-slate-400">
           {{ totalEntries() }} elementos
-          <span *ngIf="entriesLoading()" class="ml-2 italic text-indigo-300">Actualizando…</span>
+          <span *ngIf="entriesLoading()" class="ml-2 italic text-indigo-300"
+            >Actualizando…</span
+          >
         </span>
         <button
           type="button"
@@ -110,7 +130,7 @@
           (click)="clearSelectedDay()"
           [disabled]="bulkDeleting() || entriesLoading() || !entries().length"
         >
-          {{ bulkDeleting() ? 'Eliminando…' : 'Eliminar todos' }}
+          {{ bulkDeleting() ? "Eliminando…" : "Eliminar todos" }}
         </button>
       </div>
     </header>
@@ -129,7 +149,9 @@
       >
         <ng-container *ngIf="editingEntryId() === entry.id; else entryView">
           <header class="flex flex-wrap items-center justify-between gap-2">
-            <span class="text-xs font-medium uppercase tracking-wide text-slate-400">
+            <span
+              class="text-xs font-medium uppercase tracking-wide text-slate-400"
+            >
               Editando • {{ formatTimestamp(entry) }}
             </span>
             <span
@@ -166,13 +188,15 @@
               (click)="saveEdit()"
               [disabled]="editSaving() || !editDraft().trim()"
             >
-              {{ editSaving() ? 'Guardando…' : 'Guardar cambios' }}
+              {{ editSaving() ? "Guardando…" : "Guardar cambios" }}
             </button>
           </footer>
         </ng-container>
         <ng-template #entryView>
           <header class="flex flex-wrap items-center justify-between gap-2">
-            <span class="text-xs font-medium uppercase tracking-wide text-slate-400">
+            <span
+              class="text-xs font-medium uppercase tracking-wide text-slate-400"
+            >
               {{ formatTimestamp(entry) }}
             </span>
             <span
@@ -190,12 +214,14 @@
             <button
               type="button"
               class="rounded-full border px-4 py-2 text-xs font-semibold transition"
-              [ngClass]="copiedEntryId() === entry.id
-                ? 'border-emerald-400/60 bg-emerald-500/10 text-emerald-200'
-                : 'border-indigo-400/40 text-indigo-200 hover:border-indigo-300 hover:text-indigo-100'"
+              [ngClass]="
+                copiedEntryId() === entry.id
+                  ? 'border-emerald-400/60 bg-emerald-500/10 text-emerald-200'
+                  : 'border-indigo-400/40 text-indigo-200 hover:border-indigo-300 hover:text-indigo-100'
+              "
               (click)="copyEntry(entry)"
             >
-              {{ copiedEntryId() === entry.id ? 'Copiado ✓' : 'Copiar' }}
+              {{ copiedEntryId() === entry.id ? "Copiado ✓" : "Copiar" }}
             </button>
             <button
               type="button"
@@ -210,7 +236,7 @@
               (click)="deleteEntry(entry)"
               [disabled]="deletingEntryId() === entry.id"
             >
-              {{ deletingEntryId() === entry.id ? 'Eliminando…' : 'Eliminar' }}
+              {{ deletingEntryId() === entry.id ? "Eliminando…" : "Eliminar" }}
             </button>
           </footer>
         </ng-template>

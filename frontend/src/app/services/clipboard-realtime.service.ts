@@ -27,23 +27,23 @@ export class ClipboardRealtimeService implements OnDestroy {
 
     const created$ = fromEvent<ClipboardItem>(
       this.socket,
-      'clipboard:new',
-    ).pipe(map((payload) => ({ type: 'created', payload }) as const));
+      'clipboard:new'
+    ).pipe(map((payload) => ({ type: 'created', payload } as const)));
 
     const updated$ = fromEvent<ClipboardItem>(
       this.socket,
-      'clipboard:updated',
-    ).pipe(map((payload) => ({ type: 'updated', payload }) as const));
+      'clipboard:updated'
+    ).pipe(map((payload) => ({ type: 'updated', payload } as const)));
 
     const deleted$ = fromEvent<ClipboardRemoval>(
       this.socket,
-      'clipboard:deleted',
-    ).pipe(map((payload) => ({ type: 'deleted', payload }) as const));
+      'clipboard:deleted'
+    ).pipe(map((payload) => ({ type: 'deleted', payload } as const)));
 
     const cleared$ = fromEvent<ClipboardDayClear>(
       this.socket,
-      'clipboard:cleared',
-    ).pipe(map((payload) => ({ type: 'cleared', payload }) as const));
+      'clipboard:cleared'
+    ).pipe(map((payload) => ({ type: 'cleared', payload } as const)));
 
     return merge(created$, updated$, deleted$, cleared$);
   }
