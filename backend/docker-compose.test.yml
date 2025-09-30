@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: clipboard
+      POSTGRES_USER: clipboard
+      POSTGRES_PASSWORD: clipboard
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clipboard"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USER: clipboard
+      DATABASE_PASSWORD: clipboard
+      DATABASE_NAME: clipboard
+      NODE_ENV: test
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ["npm", "run", "test"]
+
+volumes:
+  pgdata:
