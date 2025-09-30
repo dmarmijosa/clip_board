@@ -5,10 +5,6 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 cd "$REPO_ROOT"
 
-: "${SSH_USER:?Define SSH_USER en tu entorno o en .env.production}"
-: "${SSH_HOST:?Define SSH_HOST en tu entorno o en .env.production}"
-: "${REMOTE_DIR:?Define REMOTE_DIR en tu entorno o en .env.production}"
-
 SSH_PORT="${SSH_PORT:-22}"
 ENV_FILE="${ENV_FILE:-.env.production}"
 COMPOSE_FILE="docker-compose.prod.yml"
@@ -17,6 +13,14 @@ if [[ ! -f "$ENV_FILE" ]]; then
   echo "[deploy] No existe $ENV_FILE. Crea el archivo a partir de .env.production.example antes de desplegar." >&2
   exit 1
 fi
+
+set -a
+source "$ENV_FILE"
+set +a
+
+: "${SSH_USER:?Define SSH_USER en tu entorno o en $ENV_FILE}"
+: "${SSH_HOST:?Define SSH_HOST en tu entorno o en $ENV_FILE}"
+: "${REMOTE_DIR:?Define REMOTE_DIR en tu entorno o en $ENV_FILE}"
 
 if ! command -v rsync >/dev/null 2>&1; then
   echo "[deploy] rsync es requerido en la máquina local." >&2
